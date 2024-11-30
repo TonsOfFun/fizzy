@@ -13,7 +13,7 @@
       <% end %>
     </div>
     <div class="comment__body txt-align-start">
-      <%= comment.body_html %>
+      <%= sanitize comment.body_html %>
     </div>
   </div>
 <% end %>
