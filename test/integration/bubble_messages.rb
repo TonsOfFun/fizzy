@@ -34,14 +34,14 @@ class BubbleMessagesTest < ActionDispatch::IntegrationTest
     assert_equal "assigned", bubble.messages.last.messageable.events.last.action
 
     # Stage it
-    post bucket_bubble_stagings_url(buckets(:writebook), bubble), params: { stage_id: workflow_stages(:qa_maybe).id }
+    post bucket_bubble_stagings_url(buckets(:writebook), bubble), params: { stage_id: workflow_stages(:qa_triage).id }
     assert_equal 3, bubble.messages.count
     assert_predicate bubble.messages.last, :event_summary?
     assert_equal 2, bubble.messages.last.event_summary.events.count
     assert_equal "staged", bubble.messages.last.messageable.events.last.action
 
     # Unstage it
-    post bucket_bubble_stagings_url(buckets(:writebook), bubble), params: { stage_id: workflow_stages(:qa_maybe).id }
+    post bucket_bubble_stagings_url(buckets(:writebook), bubble), params: { stage_id: workflow_stages(:qa_triage).id }
     assert_equal 3, bubble.messages.count
     assert_predicate bubble.messages.last, :event_summary?
     assert_equal 3, bubble.messages.last.event_summary.events.count
