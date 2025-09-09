@@ -40,15 +40,6 @@
         dragover->drag-and-drop#dragOver
         drop->drag-and-drop#drop
         dragend->drag-and-drop#dragEnd" } do %>
-  
-  <div class="card-columns" data-controller="related-element" data-related-element-highlight-class="cards--related">
-    <% unless @filter.closers.any? %>
-      <%= render "cards/index/engagement/on_deck", **@on_deck.to_h %>
-      <%= render "cards/index/engagement/considering", **@considering.to_h %>
-      <%= render "cards/index/engagement/doing", **@doing.to_h %>
-    <% end %>
-  </div>
- 
 
-  <%= render "cards/index/engagement/closed", **@closed.to_h %>
+  <%= render "cards/index/columns", user_filtering: @user_filtering, on_deck: @on_deck, considering: @considering, doing: @doing, closed: @closed %>
 <% end %>

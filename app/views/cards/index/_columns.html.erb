@@ -1,0 +1,11 @@
+<% cache [ on_deck, considering, doing, closed ].collect { it.page.records } do %>
+  <div class="card-columns" data-controller="related-element" data-related-element-highlight-class="cards--related">
+    <% unless user_filtering.only_closed? %>
+      <%= render "cards/index/engagement/on_deck", user_filtering: user_filtering, **on_deck.to_h %>
+      <%= render "cards/index/engagement/considering", user_filtering: user_filtering, **considering.to_h %>
+      <%= render "cards/index/engagement/doing", user_filtering: user_filtering, **doing.to_h %>
+    <% end %>
+
+    <%= render "cards/index/engagement/closed", user_filtering: user_filtering, **closed.to_h %>
+  </div>
+<% end %>

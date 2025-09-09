@@ -45,7 +45,7 @@ module Filter::Params
   # +as_params+ uses `resource#ids` instead of `#resource_ids`
   # because the latter won't work on unpersisted filters.
   def as_params
-    {}.tap do |params|
+    @as_params ||= {}.tap do |params|
       params[:indexed_by]        = indexed_by
       params[:sorted_by]         = sorted_by
       params[:engagement_status] = engagement_status

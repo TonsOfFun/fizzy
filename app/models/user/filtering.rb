@@ -4,6 +4,7 @@ class User::Filtering
   attr_reader :user, :filter, :expanded
 
   delegate :as_params, :any?, to: :filter
+  delegate :only_closed?, to: :filter
 
   def initialize(user, filter, expanded: false)
     @user, @filter, @expanded = user, filter, expanded

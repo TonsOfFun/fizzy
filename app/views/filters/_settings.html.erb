@@ -1,17 +1,19 @@
-<aside class="filters flex align-center gap-half justify-center center margin-block-end">
-  <div class="flex-inline center align-center gap-half">
-    <%= render "filters/settings/toggle", user_filtering: user_filtering %>
+<% cache user_filtering do %>
+  <aside class="filters flex align-center gap-half justify-center center margin-block-end">
+    <div class="flex-inline center align-center gap-half">
+      <%= render "filters/settings/toggle", user_filtering: user_filtering %>
 
-    <%= render "filters/settings/sorted_by", user_filtering: user_filtering %>
-    <%= render "filters/settings/indexed_by", user_filtering: user_filtering %>
-    <%= render "filters/settings/tags", user_filtering: user_filtering %>
-    <%= render "filters/settings/assignees", user_filtering: user_filtering %>
-    <%= render "filters/settings/creators", user_filtering: user_filtering %>
-    <%= render "filters/settings/closers", user_filtering: user_filtering %>
-    <%= render "filters/settings/time_window", user_filtering: user_filtering, name: :creation, label: "Created" %>
-    <%= render "filters/settings/time_window", user_filtering: user_filtering, name: :closure, label: "Closed" %>
-    <%= render "filters/settings/terms", user_filtering: user_filtering %>
+      <%= render "filters/settings/sorted_by", user_filtering: user_filtering %>
+      <%= render "filters/settings/indexed_by", user_filtering: user_filtering %>
+      <%= render "filters/settings/tags", user_filtering: user_filtering %>
+      <%= render "filters/settings/assignees", user_filtering: user_filtering %>
+      <%= render "filters/settings/creators", user_filtering: user_filtering %>
+      <%= render "filters/settings/closers", user_filtering: user_filtering %>
+      <%= render "filters/settings/time_window", user_filtering: user_filtering, name: :creation, label: "Created" %>
+      <%= render "filters/settings/time_window", user_filtering: user_filtering, name: :closure, label: "Closed" %>
+      <%= render "filters/settings/terms", user_filtering: user_filtering %>
 
-    <%= render "filters/settings/controls", user_filtering: user_filtering %>
-  </div>
-</aside>
+      <%= render "filters/settings/controls", user_filtering: user_filtering %>
+    </div>
+  </aside>
+<% end %>
