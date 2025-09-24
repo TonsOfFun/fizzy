@@ -250,7 +250,7 @@
     }
 
     .card__body {
-      padding-block: calc(var(--card-padding-block) * 0.75);
+      padding-block: calc(var(--card-padding-block) * 0.75) var(--card-padding-block);
     }
 
     .card__meta {
