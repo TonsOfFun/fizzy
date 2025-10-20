@@ -71,5 +71,8 @@ accessories:
       publish:
         - 80:80
         - 443:443
+      # NFS mount for certificates
+      # See https://3.basecamp.com/2914079/buckets/37331921/todos/9180260061
+      mount: type=volume,src=certificates,dst=/certificates,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/fizzy-production-certificates,"volume-opt=o=addr=purestorage.sc-chi-int.37signals.com,nfsvers=3,rw,noatime,nconnect=8,soft,timeo=30,retrans=2"
     volumes:
       - load-balancer:/home/kamal-proxy/.config/kamal-proxy
