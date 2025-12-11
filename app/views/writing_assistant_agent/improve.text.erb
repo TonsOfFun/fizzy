@@ -1,9 +1,6 @@
 Please <%= @task %><%= @has_selection ? " of the selected text" : " of the following content" %>:
 
-<% if @context.present? %>
-Context: <%= @context %>
-
-<% end %>
+<%= render partial: "card_context" %>
 <% if @has_selection %>
 ## Selected text to improve:
 <%= @selection %>

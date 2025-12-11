@@ -221,6 +221,12 @@
   font-style: italic;
 }
 
+.ai-modal__placeholder {
+  color: #9ca3af;
+  font-style: italic;
+  margin: 0;
+}
+
 .ai-modal__error {
   color: #dc2626;
   font-family: inherit;

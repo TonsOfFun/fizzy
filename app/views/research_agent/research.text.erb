@@ -10,10 +10,7 @@ Research the following topic and provide a comprehensive analysis:
 <%= @topic %>
 <% end %>
 
-<% if @context.present? %>
-## Additional Context:
-<%= @context %>
-<% end %>
+<%= render partial: "card_context" %>
 
 Research depth: <%= @depth %>
 

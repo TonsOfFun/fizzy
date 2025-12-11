@@ -122,9 +122,9 @@ export default class extends Controller {
     this.accumulatedContent = ''
     this.isStreaming = true
 
-    // Update UI
+    // Update UI - show placeholder
     if (this.hasContentTarget) {
-      this.contentTarget.innerHTML = ''
+      this.contentTarget.innerHTML = '<p class="ai-modal__placeholder">Waiting for response...</p>'
       this.contentTarget.contentEditable = 'false'
     }
     this.setStatus(this.getActionLabel(actionType), true)
@@ -146,11 +146,13 @@ export default class extends Controller {
 
   async startStreaming(actionType, selection, fullContent) {
     try {
-      // Build request body
+      // Build request body with card context
+      const cardContext = this.getCardContext()
       const requestBody = {
         action_type: actionType,
         full_content: fullContent,
-        stream: true
+        stream: true,
+        context: cardContext
       }
 
       if (selection) {
@@ -176,9 +178,8 @@ export default class extends Controller {
         return
       }
 
-      // Small delay to ensure subscription is ready
-      await new Promise(resolve => setTimeout(resolve, 100))
-
+      // Subscribe first, then the job will start broadcasting
+      // The server starts the async job after returning the stream_id
       this.subscribeToStream(data.stream_id)
     } catch (error) {
       console.error('[AI Modal] Request error:', error)
@@ -187,14 +188,15 @@ export default class extends Controller {
   }
 
   getEndpointForAction(actionType) {
+    // All actions go through their respective streaming endpoints
     const endpoints = {
       improve: '/ai/writing/stream',
       summarize: '/ai/writing/stream',
       expand: '/ai/writing/stream',
       adjust_tone: '/ai/writing/stream',
-      research: '/ai/research/research',
-      suggest_topics: '/ai/research/suggest_topics',
-      break_down_task: '/ai/research/break_down_task'
+      research: '/ai/research/stream',
+      suggest_topics: '/ai/research/stream',
+      break_down_task: '/ai/research/stream'
     }
     return endpoints[actionType] || '/ai/writing/stream'
   }
@@ -206,12 +208,17 @@ export default class extends Controller {
       { channel: "AssistantStreamChannel", stream_id: streamId },
       {
         connected: () => {
-          console.log('[AI Modal] Connected to stream')
+          console.log('[AI Modal] Connected to stream:', streamId)
         },
         disconnected: () => {
-          console.log('[AI Modal] Disconnected from stream')
+          console.log('[AI Modal] Disconnected from stream:', streamId)
+        },
+        rejected: () => {
+          console.log('[AI Modal] Subscription rejected:', streamId)
+          this.showError('Failed to connect to stream')
         },
         received: (message) => {
+          console.log('[AI Modal] Received message:', message)
           this.handleStreamMessage(message)
         }
       }
@@ -275,16 +282,26 @@ export default class extends Controller {
 
     // Update editor based on type
     if (editor.tagName === 'LEXXY-EDITOR') {
-      if (typeof editor.setContent === 'function') {
-        editor.setContent(finalContent)
-      }
+      const previousContent = editor.value || ''
+      // Convert plain text to HTML for lexxy-editor
+      const htmlContent = this.textToHtml(finalContent)
+      editor.value = htmlContent
+      editor.dispatchEvent(new CustomEvent('lexxy:change', {
+        bubbles: true,
+        detail: {
+          previousContent: previousContent,
+          newContent: htmlContent
+        }
+      }))
     } else if (editor.tagName === 'TEXTAREA') {
       editor.value = finalContent
+      editor.dispatchEvent(new Event('input', { bubbles: true }))
     } else if (editor.tagName === 'TRIX-EDITOR') {
       editor.editor.loadHTML(finalContent)
+      editor.dispatchEvent(new Event('input', { bubbles: true }))
+    } else {
+      editor.dispatchEvent(new Event('input', { bubbles: true }))
     }
-
-    editor.dispatchEvent(new Event('input', { bubbles: true }))
     this.closeModal()
   }
 
@@ -439,6 +456,23 @@ export default class extends Controller {
     return null
   }
 
+  /**
+   * Convert plain text to HTML for lexxy-editor
+   * Wraps paragraphs in <p> tags and preserves line breaks
+   */
+  textToHtml(text) {
+    if (!text) return '<p><br></p>'
+
+    // Split by double newlines for paragraphs
+    const paragraphs = text.split(/\n\n+/)
+
+    return paragraphs.map(para => {
+      // Replace single newlines with <br> within paragraphs
+      const content = para.trim().replace(/\n/g, '<br>')
+      return content ? `<p>${content}</p>` : ''
+    }).filter(p => p).join('') || '<p><br></p>'
+  }
+
   cleanup() {
     if (this.subscription) {
       this.subscription.unsubscribe()
@@ -448,5 +482,102 @@ export default class extends Controller {
     this.accumulatedContent = ''
     this.storedSelection = null
     this.storedFullContent = null
+  }
+
+  /**
+   * Extract card context from the current page DOM
+   * Gathers title, board name, tags, assignees, and other metadata
+   */
+  getCardContext() {
+    const context = {}
+
+    // Get card title from h1 heading or title input
+    const titleInput = document.querySelector('.card__title input, .card__title textarea, .card-field__title')
+    const titleHeading = document.querySelector('h1.card__title a, h1 a[href*="/cards/"]')
+    if (titleInput) {
+      context.title = titleInput.value || titleInput.textContent
+    } else if (titleHeading) {
+      context.title = titleHeading.textContent.trim()
+    }
+
+    // Get board name from navigation or breadcrumb
+    const boardLink = document.querySelector('a[href*="/boards/"]')
+    if (boardLink) {
+      const boardText = boardLink.textContent.trim()
+      if (boardText && boardText !== 'Back to') {
+        context.board = boardText.replace('Back to ', '').trim()
+      }
+    }
+
+    // Try to find board name from card metadata area
+    const boardBadge = document.querySelector('[class*="card__board"], [class*="board-name"]')
+    if (boardBadge && !context.board) {
+      context.board = boardBadge.textContent.trim()
+    }
+
+    // Get card number
+    const cardNumber = document.querySelector('[class*="card__number"], [class*="card-number"]')
+    if (cardNumber) {
+      const match = cardNumber.textContent.match(/\d+/)
+      if (match) {
+        context.cardNumber = match[0]
+      }
+    }
+
+    // Get tags - look for tag elements
+    const tagElements = document.querySelectorAll('[class*="tag"], [data-tag], .tagging')
+    const tags = []
+    tagElements.forEach(el => {
+      const tagText = el.textContent.trim()
+      if (tagText && !tags.includes(tagText)) {
+        tags.push(tagText)
+      }
+    })
+    if (tags.length > 0) {
+      context.tags = tags
+    }
+
+    // Get assignees
+    const assigneeElements = document.querySelectorAll('[class*="assignee"], [data-assignee]')
+    const assignees = []
+    assigneeElements.forEach(el => {
+      const name = el.textContent.trim()
+      if (name && !assignees.includes(name)) {
+        assignees.push(name)
+      }
+    })
+
+    // Also check for "Assigned to" text pattern
+    const assignedToText = document.body.innerText.match(/Assigned to\s+([A-Za-z\s.]+)/i)
+    if (assignedToText && assignedToText[1]) {
+      const assignee = assignedToText[1].trim()
+      if (assignee && !assignees.includes(assignee)) {
+        assignees.push(assignee)
+      }
+    }
+
+    if (assignees.length > 0) {
+      context.assignees = assignees
+    }
+
+    // Get column/status if available
+    const columnElement = document.querySelector('[class*="column__title"], [class*="column-name"]')
+    if (columnElement) {
+      context.status = columnElement.textContent.trim()
+    }
+
+    // Get due date if available
+    const dueDateElement = document.querySelector('[class*="due-date"], time[datetime]')
+    if (dueDateElement) {
+      context.dueDate = dueDateElement.getAttribute('datetime') || dueDateElement.textContent.trim()
+    }
+
+    // Only return context if we found something useful
+    const hasContent = Object.keys(context).some(key => {
+      const value = context[key]
+      return value && (Array.isArray(value) ? value.length > 0 : true)
+    })
+
+    return hasContent ? context : null
   }
 }

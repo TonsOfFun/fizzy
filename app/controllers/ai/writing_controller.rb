@@ -76,11 +76,14 @@ module AI
       full_content = params[:full_content]
       content = selection.present? ? selection : (params[:content] || full_content)
 
+      # Convert context params to hash if present (avoids unpermitted params errors)
+      context = params[:context].present? ? params[:context].to_unsafe_h : nil
+
       agent = WritingAssistantAgent.with(
         content: content,
         selection: selection,
         full_content: full_content,
-        context: params[:context],
+        context: context,
         tone: params[:tone],
         max_words: params[:max_words] || 150,
         target_length: params[:target_length],

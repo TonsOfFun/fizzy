@@ -44,7 +44,7 @@ class WritingAssistantAgent < ApplicationAgent
     @content = params[:content]
     @selection = params[:selection]
     @full_content = params[:full_content]
-    @context = params[:context]
+    @card_context = params[:context]
     @has_selection = @selection.present?
   end
 
@@ -71,7 +71,7 @@ class WritingAssistantAgent < ApplicationAgent
       content: @content,
       selection: @selection,
       full_content: @full_content,
-      context: @context,
+      card_context: @card_context,
       has_selection: @has_selection,
       tone: @tone,
       max_words: @max_words,

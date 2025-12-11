@@ -14,12 +14,12 @@ class ResearchAgent < ApplicationAgent
   def research
     @query = params[:query]
     @topic = params[:topic]
-    @context = params[:context]
+    @card_context = params[:context]
     @depth = params[:depth] || "standard"
 
     create_context(
       contextable: params[:contextable],
-      input_params: { query: @query, topic: @topic, context: @context, depth: @depth }
+      input_params: { query: @query, topic: @topic, card_context: @card_context, depth: @depth }
     )
 
     prompt
@@ -28,11 +28,11 @@ class ResearchAgent < ApplicationAgent
   # Generate related topics or questions
   def suggest_topics
     @topic = params[:topic]
-    @context = params[:context]
+    @card_context = params[:context]
 
     create_context(
       contextable: params[:contextable],
-      input_params: { topic: @topic, context: @context }
+      input_params: { topic: @topic, card_context: @card_context }
     )
 
     prompt
@@ -41,11 +41,11 @@ class ResearchAgent < ApplicationAgent
   # Break down a task into subtasks
   def break_down_task
     @task = params[:task]
-    @context = params[:context]
+    @card_context = params[:context]
 
     create_context(
       contextable: params[:contextable],
-      input_params: { task: @task, context: @context }
+      input_params: { task: @task, card_context: @card_context }
     )
 
     prompt

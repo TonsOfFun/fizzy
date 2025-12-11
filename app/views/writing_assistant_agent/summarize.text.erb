@@ -1,9 +1,6 @@
 Please <%= @task %> of the following content:
 
-<% if @context.present? %>
-Context: <%= @context %>
-
-<% end %>
+<%= render partial: "card_context" %>
 ## Content to summarize:
 <%= @content %>
 

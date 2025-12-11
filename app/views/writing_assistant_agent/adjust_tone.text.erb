@@ -1,9 +1,6 @@
 Please <%= @task %>:
 
-<% if @context.present? %>
-Context: <%= @context %>
-
-<% end %>
+<%= render partial: "card_context" %>
 ## Content to adjust:
 <%= @content %>
 

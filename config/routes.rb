@@ -202,6 +202,7 @@ Rails.application.routes.draw do
       post :research
       post :suggest_topics
       post :break_down_task
+      post :stream
     end
   end
 

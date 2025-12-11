@@ -3,10 +3,7 @@ Break down the following task into smaller, actionable subtasks:
 ## Task:
 <%= @task %>
 
-<% if @context.present? %>
-## Context:
-<%= @context %>
-<% end %>
+<%= render partial: "card_context" %>
 
 Please provide:
 - A logical sequence of subtasks to complete this task
