@@ -1,0 +1,35 @@
+<% if @card_context.present? %>
+## Card Context:
+<% if @card_context.is_a?(Hash) %>
+<% if @card_context["title"].present? || @card_context[:title].present? %>
+- **Card Title:** <%= @card_context["title"] || @card_context[:title] %>
+<% end %>
+<% if @card_context["board"].present? || @card_context[:board].present? %>
+- **Board:** <%= @card_context["board"] || @card_context[:board] %>
+<% end %>
+<% if @card_context["cardNumber"].present? || @card_context[:cardNumber].present? %>
+- **Card Number:** #<%= @card_context["cardNumber"] || @card_context[:cardNumber] %>
+<% end %>
+<% if @card_context["status"].present? || @card_context[:status].present? %>
+- **Status/Column:** <%= @card_context["status"] || @card_context[:status] %>
+<% end %>
+<% if (@card_context["tags"].present? || @card_context[:tags].present?) %>
+<% tags = @card_context["tags"] || @card_context[:tags] %>
+<% if tags.is_a?(Array) && tags.any? %>
+- **Tags:** <%= tags.join(", ") %>
+<% end %>
+<% end %>
+<% if (@card_context["assignees"].present? || @card_context[:assignees].present?) %>
+<% assignees = @card_context["assignees"] || @card_context[:assignees] %>
+<% if assignees.is_a?(Array) && assignees.any? %>
+- **Assigned to:** <%= assignees.join(", ") %>
+<% end %>
+<% end %>
+<% if @card_context["dueDate"].present? || @card_context[:dueDate].present? %>
+- **Due Date:** <%= @card_context["dueDate"] || @card_context[:dueDate] %>
+<% end %>
+<% else %>
+<%= @card_context %>
+<% end %>
+
+<% end %>
