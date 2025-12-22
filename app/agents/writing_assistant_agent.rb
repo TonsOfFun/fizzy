@@ -81,11 +81,11 @@ class WritingAssistantAgent < ApplicationAgent
   end
 
   def broadcast_chunk(chunk)
-    return unless chunk.delta
+    return unless chunk.message
     return unless params[:stream_id]
 
-    Rails.logger.info "[Agent] Broadcasting chunk to stream_id: #{params[:stream_id]}, chunk length: #{chunk.delta.length}"
-    ActionCable.server.broadcast(params[:stream_id], { content: chunk.delta })
+    Rails.logger.info "[Agent] Broadcasting chunk to stream_id: #{params[:stream_id]}, content length: #{chunk.message[:content].length}"
+    ActionCable.server.broadcast(params[:stream_id], { content: chunk.message[:content] })
   end
 
   def broadcast_complete(chunk)

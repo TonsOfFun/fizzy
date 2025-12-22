@@ -80,11 +80,11 @@ class FileAnalysisAgent < ApplicationAgent
   end
 
   def broadcast_chunk(chunk)
-    return unless chunk.delta
+    return unless chunk.message[:content]
     return unless params[:stream_id]
 
-    Rails.logger.info "[FileAnalysisAgent] Broadcasting chunk to stream_id: #{params[:stream_id]}"
-    ActionCable.server.broadcast(params[:stream_id], { content: chunk.delta })
+    Rails.logger.info "[FileAnalysisAgent] Broadcasting chunk to stream_id: #{params[:stream_id]}, content length: #{chunk.message[:content].length}"
+    ActionCable.server.broadcast(params[:stream_id], { content: chunk.message[:content] })
   end
 
   def broadcast_complete(chunk)

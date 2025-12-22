@@ -231,7 +231,8 @@ export default class extends Controller {
     if (message.tool_status) {
       this.setStatus(message.tool_status.description, true)
     } else if (message.content) {
-      this.accumulatedContent += message.content
+      // Use full content from server (handles out-of-order ActionCable delivery)
+      this.accumulatedContent = message.content
       if (this.hasContentTarget) {
         this.contentTarget.innerHTML = this.renderMarkdown(this.accumulatedContent)
         this.contentTarget.scrollTop = this.contentTarget.scrollHeight
