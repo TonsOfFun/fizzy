@@ -39,7 +39,7 @@ gem "mittens"
 gem "useragent", bc: "useragent"
 gem "herb"
 gem "activeagent", "~> 1.0.1"
-gem "solid_agent", path: "../solid_agent"
+gem "solid_agent", "~> 0.1.1"
 
 # Operations
 gem "autotuner"

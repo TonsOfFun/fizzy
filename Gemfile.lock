@@ -112,14 +112,6 @@ GIT
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
 
-PATH
-  remote: ../solid_agent
-  specs:
-    solid_agent (0.1.1)
-      activeagent (>= 1.0.0)
-      activerecord (>= 7.0)
-      activesupport (>= 7.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -442,6 +434,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    solid_agent (0.1.1)
+      activeagent (>= 1.0.0)
+      activerecord (>= 7.0)
+      activesupport (>= 7.0)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -574,7 +570,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   rubyzip
   selenium-webdriver
-  solid_agent!
+  solid_agent (~> 0.1.1)
   solid_cable (>= 3.0)
   solid_cache (~> 1.0)
   solid_queue (~> 1.2)

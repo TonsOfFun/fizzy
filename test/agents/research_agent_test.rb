@@ -220,8 +220,8 @@ class ResearchAgentTest < ActiveSupport::TestCase
   end
 
   test "web_search handles errors gracefully" do
-    # Mock fetch_url_content to raise an error
-    @agent.define_singleton_method(:fetch_url_content) do |_url|
+    # Mock fetch_search_page to raise an error
+    @agent.define_singleton_method(:fetch_search_page) do |_url|
       raise "Network error"
     end
 
@@ -240,5 +240,63 @@ class ResearchAgentTest < ActiveSupport::TestCase
     result = @agent.web_fetch(url: "file:///etc/passwd")
 
     assert result.include?("Failed to fetch URL")
+  end
+
+  # === Brave Search API Tests ===
+
+  test "uses Brave Search when API key is configured" do
+    # Simulate having a Brave API key
+    @agent.define_singleton_method(:brave_api_key) { "test_brave_key" }
+
+    VCR.use_cassette("brave_search") do
+      result = @agent.web_search(query: "Ruby programming")
+
+      # Should return results (or at least attempt Brave)
+      assert result.present?
+      assert result.is_a?(String)
+    end
+  end
+
+  test "falls back to DuckDuckGo when Brave API key not configured" do
+    # Ensure no Brave API key
+    @agent.define_singleton_method(:brave_api_key) { nil }
+
+    VCR.use_cassette("duckduckgo_search") do
+      result = @agent.web_search(query: "Ruby on Rails")
+
+      assert result.present?
+    end
+  end
+
+  test "no_results_message includes helpful info when Brave not configured" do
+    @agent.define_singleton_method(:brave_api_key) { nil }
+
+    message = @agent.send(:no_results_message, "test query")
+
+    assert message.include?("test query")
+    assert message.include?("web_fetch")
+    assert message.include?("BRAVE_SEARCH_API_KEY")
+  end
+
+  test "no_results_message is simple when Brave is configured" do
+    @agent.define_singleton_method(:brave_api_key) { "test_key" }
+
+    message = @agent.send(:no_results_message, "test query")
+
+    assert message.include?("test query")
+    refute message.include?("BRAVE_SEARCH_API_KEY")
+  end
+
+  test "detects CAPTCHA blocks from DuckDuckGo" do
+    @agent.define_singleton_method(:brave_api_key) { nil }
+
+    # Mock fetch_search_page to return a CAPTCHA page
+    @agent.define_singleton_method(:fetch_search_page) do |_url|
+      '<html><div class="anomaly-modal">Select all squares containing a duck</div></html>'
+    end
+
+    results = @agent.send(:perform_duckduckgo_search, "test", 5)
+
+    assert_equal [], results
   end
 end

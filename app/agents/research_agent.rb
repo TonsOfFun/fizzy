@@ -26,7 +26,7 @@ class ResearchAgent < ApplicationAgent
       input_params: { query: @query, topic: @topic, card_context: @card_context, depth: @depth }
     )
 
-    prompt tools: tools, tool_choice: "required"
+    prompt tools: tools, tool_choice: "auto"
   end
 
   # Generate related topics or questions
@@ -65,11 +65,25 @@ class ResearchAgent < ApplicationAgent
     if results.any?
       format_search_results(results)
     else
-      "No search results found for: #{query}"
+      no_results_message(query)
     end
   rescue => e
     Rails.logger.error "[ResearchAgent] Web search error: #{e.message}"
     "Search failed: #{e.message}"
+  end
+
+  def no_results_message(query)
+    if brave_api_key.blank?
+      <<~MSG.strip
+        No search results found for: #{query}
+
+        Note: Web search is currently using DuckDuckGo which may block automated requests.
+        If the user provided a specific URL, try using web_fetch directly on that URL.
+        For more reliable search results, configure BRAVE_SEARCH_API_KEY environment variable.
+      MSG
+    else
+      "No search results found for: #{query}"
+    end
   end
 
   # Tool: Fetch content from a URL
@@ -89,11 +103,113 @@ class ResearchAgent < ApplicationAgent
   private
 
   def perform_web_search(query, num_results)
+    # Try Brave Search API first if configured
+    if brave_api_key.present?
+      perform_brave_search(query, num_results)
+    else
+      perform_duckduckgo_search(query, num_results)
+    end
+  end
+
+  def brave_api_key
+    ENV["BRAVE_SEARCH_API_KEY"] || Rails.application.credentials.dig(:brave, :search_api_key)
+  end
+
+  def perform_brave_search(query, num_results)
+    uri = URI("https://api.search.brave.com/res/v1/web/search")
+    uri.query = URI.encode_www_form(q: query, count: num_results)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.open_timeout = 10
+    http.read_timeout = 15
+
+    request = Net::HTTP::Get.new(uri)
+    request["Accept"] = "application/json"
+    request["X-Subscription-Token"] = brave_api_key
+
+    response = http.request(request)
+
+    if response.is_a?(Net::HTTPSuccess)
+      data = JSON.parse(response.body)
+      parse_brave_results(data, num_results)
+    else
+      Rails.logger.warn "[ResearchAgent] Brave search failed: #{response.code}, falling back to DuckDuckGo"
+      perform_duckduckgo_search(query, num_results)
+    end
+  rescue => e
+    Rails.logger.warn "[ResearchAgent] Brave search error: #{e.message}, falling back to DuckDuckGo"
+    perform_duckduckgo_search(query, num_results)
+  end
+
+  def parse_brave_results(data, num_results)
+    results = []
+    web_results = data.dig("web", "results") || []
+
+    web_results.first(num_results).each do |result|
+      results << {
+        title: result["title"],
+        url: result["url"],
+        snippet: result["description"] || ""
+      }
+    end
+
+    results
+  end
+
+  def perform_duckduckgo_search(query, num_results)
     encoded_query = CGI.escape(query)
     search_url = "https://html.duckduckgo.com/html/?q=#{encoded_query}"
 
-    html = fetch_url_content(search_url)
-    parse_duckduckgo_results(html, num_results)
+    html = fetch_search_page(search_url)
+    results = parse_duckduckgo_results(html, num_results)
+
+    # Check if we got blocked by CAPTCHA
+    if results.empty? && html.include?("anomaly-modal")
+      Rails.logger.warn "[ResearchAgent] DuckDuckGo blocked with CAPTCHA. Consider configuring BRAVE_SEARCH_API_KEY."
+      []
+    else
+      results
+    end
+  end
+
+  def fetch_search_page(url)
+    uri = URI.parse(url)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = (uri.scheme == "https")
+    http.open_timeout = 10
+    http.read_timeout = 15
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+    # Use a realistic browser User-Agent
+    request["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    request["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
+    request["Accept-Language"] = "en-US,en;q=0.9"
+    request["Accept-Encoding"] = "gzip, deflate, br"
+    request["Cache-Control"] = "no-cache"
+    request["Sec-Ch-Ua"] = '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"'
+    request["Sec-Ch-Ua-Mobile"] = "?0"
+    request["Sec-Ch-Ua-Platform"] = '"macOS"'
+    request["Sec-Fetch-Dest"] = "document"
+    request["Sec-Fetch-Mode"] = "navigate"
+    request["Sec-Fetch-Site"] = "none"
+    request["Sec-Fetch-User"] = "?1"
+    request["Upgrade-Insecure-Requests"] = "1"
+
+    response = http.request(request)
+
+    case response
+    when Net::HTTPSuccess
+      body = response.body
+      # Handle gzip encoding
+      if response["Content-Encoding"] == "gzip"
+        body = Zlib::GzipReader.new(StringIO.new(body)).read
+      end
+      body.force_encoding("UTF-8")
+    else
+      raise "HTTP #{response.code}: #{response.message}"
+    end
   end
 
   def parse_duckduckgo_results(html, num_results)
