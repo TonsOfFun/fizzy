@@ -194,6 +194,108 @@ Under the hood, this will create or remove `tmp/email-dev.txt`.
 
 This gem depends on some private git repositories and it is not meant to be used by third parties. But we hope it can serve as inspiration for anyone wanting to run fizzy on their own infrastructure.
 
+## AI Agents (ActiveAgent Integration)
+
+This fork includes AI-powered features built with [ActiveAgent](https://github.com/activeagents/activeagent) and [SolidAgent](https://github.com/activeagents/solid_agent). These provide in-app AI assistance for writing, research, and file analysis.
+
+### Available Agents
+
+| Agent | Description | Actions |
+|-------|-------------|---------|
+| **WritingAssistantAgent** | Helps improve card content | `improve`, `summarize`, `expand`, `adjust_tone` |
+| **ResearchAgent** | Web search and URL fetching | `research`, `suggest_topics`, `break_down_task` |
+| **FileAnalysisAgent** | Image/document analysis with GPT-4o vision | `analyze`, `extract_text`, `describe_image` |
+
+### Configuration
+
+AI features require an OpenAI API key. Set the following environment variable:
+
+```bash
+OPENAI_API_KEY=your-api-key
+```
+
+For web search functionality, the ResearchAgent uses DuckDuckGo by default, but this can be rate-limited. For more reliable search, configure the Brave Search API (free tier available at https://brave.com/search/api/):
+
+```bash
+BRAVE_SEARCH_API_KEY=your-brave-api-key
+```
+
+Provider configuration is in `config/active_agent.yml`.
+
+### Architecture
+
+Agents follow Rails conventions with an MVC-like pattern:
+
+```
+app/
+├── agents/
+│   ├── application_agent.rb      # Base class with shared concerns
+│   ├── writing_assistant_agent.rb
+│   ├── research_agent.rb
+│   └── file_analysis_agent.rb
+└── views/
+    ├── research_agent/
+    │   ├── instructions.text.erb  # System prompt
+    │   ├── research.text.erb      # Action template
+    │   └── tools/                 # Tool schemas (JSON)
+    │       ├── web_search.json.erb
+    │       └── web_fetch.json.erb
+    └── writing_assistant_agent/
+        └── ...
+```
+
+Key concepts:
+- **`generate_with`**: Configures the LLM provider and model
+- **`has_tools`**: Declares available tools (loaded from JSON templates or inline)
+- **`has_context`**: Enables context persistence for audit trails
+- **`on_stream`**: Broadcasts chunks via ActionCable for real-time UI updates
+
+### Adding a New Agent
+
+1. Create the agent class in `app/agents/`:
+
+```ruby
+class MyAgent < ApplicationAgent
+  has_context
+  has_tools :my_tool
+
+  generate_with :openai, model: "gpt-4o", stream: true
+
+  on_stream :broadcast_chunk
+  on_stream_close :broadcast_complete
+
+  def my_action
+    @input = params[:input]
+    create_context(contextable: params[:contextable], input_params: { input: @input })
+    prompt tools: tools, tool_choice: "auto"
+  end
+
+  def my_tool(arg:)
+    # Tool implementation
+    "Result for #{arg}"
+  end
+
+  private
+
+  def broadcast_chunk(chunk)
+    return unless chunk.message && params[:stream_id]
+    ActionCable.server.broadcast(params[:stream_id], { content: chunk.message[:content] })
+  end
+
+  def broadcast_complete(chunk)
+    return unless params[:stream_id]
+    ActionCable.server.broadcast(params[:stream_id], { done: true })
+  end
+end
+```
+
+2. Create view templates in `app/views/my_agent/`:
+   - `instructions.text.erb` - System prompt
+   - `my_action.text.erb` - User message template
+   - `tools/my_tool.json.erb` - Tool schema (OpenAI format)
+
+3. Wire up the controller and routes as needed.
+
 ## Contributing
 
 We welcome contributions! Please read our [style guide](STYLE.md) before submitting code.
