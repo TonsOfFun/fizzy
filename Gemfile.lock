@@ -116,7 +116,7 @@ PATH
   remote: ../solid_agent
   specs:
     solid_agent (0.1.1)
-      activeagent (>= 0.1.0)
+      activeagent (>= 1.0.0)
       activerecord (>= 7.0)
       activesupport (>= 7.0)
 
@@ -125,7 +125,7 @@ GEM
   specs:
     action_text-trix (2.1.15)
       railties
-    activeagent (1.0.0)
+    activeagent (1.0.1)
       actionpack (>= 7.2, <= 9.0)
       actionview (>= 7.2, <= 9.0)
       activejob (>= 7.2, <= 9.0)
@@ -538,7 +538,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  activeagent
+  activeagent (~> 1.0.1)
   autotuner
   aws-sdk-s3
   bcrypt (~> 3.1.7)

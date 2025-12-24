@@ -38,7 +38,7 @@ gem "rubyzip", require: "zip"
 gem "mittens"
 gem "useragent", bc: "useragent"
 gem "herb"
-gem "activeagent"
+gem "activeagent", "~> 1.0.1"
 gem "solid_agent", path: "../solid_agent"
 
 # Operations

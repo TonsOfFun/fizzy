@@ -1,0 +1,19 @@
+{
+  "type": "function",
+  "name": "web_fetch",
+  "description": "Fetch the content of a specific URL. Use this to read the full content of a webpage, documentation page, or article.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The URL to fetch content from"
+      },
+      "extract_main_content": {
+        "type": "boolean",
+        "description": "If true, attempts to extract just the main content without navigation, ads, etc. (default: true)"
+      }
+    },
+    "required": ["url"]
+  }
+}

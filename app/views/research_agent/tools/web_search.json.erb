@@ -1,0 +1,19 @@
+{
+  "type": "function",
+  "name": "web_search",
+  "description": "Search the web for information on a topic. Use this to find current information, news, documentation, or any web-based resources.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "The search query to look up on the web"
+      },
+      "num_results": {
+        "type": "integer",
+        "description": "Number of search results to return (default: 5, max: 10)"
+      }
+    },
+    "required": ["query"]
+  }
+}

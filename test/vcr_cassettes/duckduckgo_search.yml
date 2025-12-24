@@ -1,0 +1,217 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://html.duckduckgo.com/html/?q=Ruby%20on%20Rails
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (compatible; FizzyResearchBot/1.0)
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 24 Dec 2025 20:13:17 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total;dur=23;desc="Backend Total [n]"
+      Vary:
+      - Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Robots-Tag:
+      - noindex
+      Permissions-Policy:
+      - interest-cohort=()
+      Content-Security-Policy:
+      - 'default-src ''none'' ; connect-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; manifest-src  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; media-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; script-src blob:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; font-src data:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; img-src data:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; style-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; object-src ''none'' ; worker-src blob: ; child-src
+        blob:  https://duck.ai https://*.duck.ai https://duckduckgo.com https://*.duckduckgo.com
+        https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/ https://spreadprivacy.com
+        ; frame-src blob:  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; frame-ancestors ''self'' ; base-uri ''self'' ;
+        block-all-mixed-content ;'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1;mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - origin
+      Expect-Ct:
+      - max-age=0
+    body:
+      encoding: UTF-8
+      string: "<!-- <!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"
+        \"http://www.w3.org/TR/html4/loose.dtd\"> -->\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n
+        \   <link rel=\"canonical\" href=\"https://duckduckgo.com/\">\n    <meta http-equiv=\"content-type\"
+        content=\"text/html; charset=UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width,
+        initial-scale=1.0, maximum-scale=3.0, user-scalable=1\">\n    <meta name=\"referrer\"
+        content=\"origin\">\n    <title>\n        DuckDuckGo\n    </title>\n    <link
+        rel=\"preload\" href=\"/font/ProximaNova-Reg-webfont.woff2\" as=\"font\" type=\"font/woff2\"
+        crossorigin=\"anonymous\">\n    <link rel=\"preload\" href=\"/font/ProximaNova-Sbold-webfont.woff2\"
+        as=\"font\" type=\"font/woff2\" crossorigin=\"anonymous\">\n    <link title=\"DuckDuckGo
+        (Lite)\" type=\"application/opensearchdescription+xml\" rel=\"search\" href=\"//duckduckgo.com/opensearch_lite_v2.xml\">\n
+        \   <link rel=\"icon\" href=\"//duckduckgo.com/favicon.ico\" type=\"image/x-icon\"/>\n
+        \   <link id=\"icon60\" rel=\"apple-touch-icon\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_60x60.png?v=2\"/>\n
+        \   <link id=\"icon76\" rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_76x76.png?v=2\"/>\n
+        \   <link id=\"icon120\" rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_120x120.png?v=2\"/>\n
+        \   <link id=\"icon152\" rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_152x152.png?v=2\"/>\n
+        \   <link rel=\"image_src\" href=\"//duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png\">\n
+        \   <link rel=\"stylesheet\" media=\"handheld, all\" href=\"//duckduckgo.com/dist/l.dedf9a21e97bacda4782.css\"
+        type=\"text/css\"/>\n    <link rel=\"stylesheet\" media=\"handheld, all\"
+        href=\"//duckduckgo.com/dist/lc.ddfa8c0ba43459a9159a.css\" type=\"text/css\"/>\n</head>\n\n<body>\n
+        \   <a name=\"top\"></a>\n    <center id=\"lite_wrapper\">\n        <br>\n
+        \       <a class=\"header-url\" href=\"/html/\">\n            <span class=\"header\">DuckDuckGo</span>\n
+        \       </a>\n        <br><br>\n\n        \n        <iframe name=\"ifr\" width=\"0\"
+        height=\"0\" border=\"0\" class=\"hidden\"></iframe>\n        <form id=\"img-form\"
+        action=\"//duckduckgo.com/anomaly.js?sv=html&cc=sre&ti=1766607197&gk=d4cd0dabcf4caa22ad92fab40844c786&p=e2d9f8fda1494035bde0c01149bad26a-83a8bbb9db1b4e989dad0ccf51c486cb-99c9cc37b942455da540552847465280-d9a34a82af2f40b2b09e501ff8fe8bf4-649db76a9b3645808b763c97c94fa1a5-2fe593a023f249a2be9e11b80a0aed68-d488984d1bad453e982e863ada5769d6-bf533c68153f4d3db74d31b33a9d1707-6cc56ef6960946b7b63c0250878e085e&q=Ruby
+        on Rails&o=LDSV6x7fhCn2%2Bg6pgRkVD8cEMVqusl2a3Owcpfl177U%3D%0A&r=usw\" target=\"ifr\"
+        method=\"POST\"></form>\n        <form id=\"challenge-form\" action=\"//duckduckgo.com/anomaly.js?sv=html&cc=sre&st=1766607197&gk=d4cd0dabcf4caa22ad92fab40844c786&p=e2d9f8fda1494035bde0c01149bad26a-83a8bbb9db1b4e989dad0ccf51c486cb-99c9cc37b942455da540552847465280-d9a34a82af2f40b2b09e501ff8fe8bf4-649db76a9b3645808b763c97c94fa1a5-2fe593a023f249a2be9e11b80a0aed68-d488984d1bad453e982e863ada5769d6-bf533c68153f4d3db74d31b33a9d1707-6cc56ef6960946b7b63c0250878e085e&q=Ruby
+        on Rails&o=LDSV6x7fhCn2%2Bg6pgRkVD8cEMVqusl2a3Owcpfl177U%3D%0A&r=usw\" method=\"POST\">\n
+        \           <div class=\"anomaly-modal__mask\">\n                <div class=\"anomaly-modal__modal
+        \ is-ie\" data-testid=\"anomaly-modal\">\n                    <div class=\"anomaly-modal__title\">Unfortunately,
+        bots use DuckDuckGo too.</div>\n                    <div class=\"anomaly-modal__description\">Please
+        complete the following challenge to confirm this search was made by a human.</div>\n
+        \                   <div class=\"anomaly-modal__instructions\">Select all
+        squares containing a duck:</div>\n                    <div class=\"anomaly-modal__puzzle-margins\">\n
+        \                       <div class=\"anomaly-modal__puzzle\">\n                            \n
+        \                               <div class=\"anomaly-modal__box\" data-index=\"0\">\n
+        \                                   \n                                    \n
+        \                                       <label class=\"\" for=\"image-check_e2d9f8fda1494035bde0c01149bad26a\"
+        data-testid=\"anomaly-modal-tile-0\">\n                                            <input
+        type=\"checkbox\" class=\"anomaly-modal__check\" name=\"image-check_e2d9f8fda1494035bde0c01149bad26a\"
+        id=\"image-check_e2d9f8fda1494035bde0c01149bad26a\">\n                                            <img
+        class=\"anomaly-modal__image\" alt=\" \" id=\"image-e2d9f8fda1494035bde0c01149bad26a\"
+        src=\"../assets/anomaly/images/challenge/e2d9f8fda1494035bde0c01149bad26a.jpg\"
+        data-id=\"e2d9f8fda1494035bde0c01149bad26a.jpg\" data-testid=\"anomaly-modal-image-0\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"1\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_83a8bbb9db1b4e989dad0ccf51c486cb\" data-testid=\"anomaly-modal-tile-1\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_83a8bbb9db1b4e989dad0ccf51c486cb\" id=\"image-check_83a8bbb9db1b4e989dad0ccf51c486cb\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-83a8bbb9db1b4e989dad0ccf51c486cb\" src=\"../assets/anomaly/images/challenge/83a8bbb9db1b4e989dad0ccf51c486cb.jpg\"
+        data-id=\"83a8bbb9db1b4e989dad0ccf51c486cb.jpg\" data-testid=\"anomaly-modal-image-1\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"2\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_99c9cc37b942455da540552847465280\" data-testid=\"anomaly-modal-tile-2\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_99c9cc37b942455da540552847465280\" id=\"image-check_99c9cc37b942455da540552847465280\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-99c9cc37b942455da540552847465280\" src=\"../assets/anomaly/images/challenge/99c9cc37b942455da540552847465280.jpg\"
+        data-id=\"99c9cc37b942455da540552847465280.jpg\" data-testid=\"anomaly-modal-image-2\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"3\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_d9a34a82af2f40b2b09e501ff8fe8bf4\" data-testid=\"anomaly-modal-tile-3\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_d9a34a82af2f40b2b09e501ff8fe8bf4\" id=\"image-check_d9a34a82af2f40b2b09e501ff8fe8bf4\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-d9a34a82af2f40b2b09e501ff8fe8bf4\" src=\"../assets/anomaly/images/challenge/d9a34a82af2f40b2b09e501ff8fe8bf4.jpg\"
+        data-id=\"d9a34a82af2f40b2b09e501ff8fe8bf4.jpg\" data-testid=\"anomaly-modal-image-3\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"4\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_649db76a9b3645808b763c97c94fa1a5\" data-testid=\"anomaly-modal-tile-4\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_649db76a9b3645808b763c97c94fa1a5\" id=\"image-check_649db76a9b3645808b763c97c94fa1a5\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-649db76a9b3645808b763c97c94fa1a5\" src=\"../assets/anomaly/images/challenge/649db76a9b3645808b763c97c94fa1a5.jpg\"
+        data-id=\"649db76a9b3645808b763c97c94fa1a5.jpg\" data-testid=\"anomaly-modal-image-4\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"5\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_2fe593a023f249a2be9e11b80a0aed68\" data-testid=\"anomaly-modal-tile-5\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_2fe593a023f249a2be9e11b80a0aed68\" id=\"image-check_2fe593a023f249a2be9e11b80a0aed68\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-2fe593a023f249a2be9e11b80a0aed68\" src=\"../assets/anomaly/images/challenge/2fe593a023f249a2be9e11b80a0aed68.jpg\"
+        data-id=\"2fe593a023f249a2be9e11b80a0aed68.jpg\" data-testid=\"anomaly-modal-image-5\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"6\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_d488984d1bad453e982e863ada5769d6\" data-testid=\"anomaly-modal-tile-6\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_d488984d1bad453e982e863ada5769d6\" id=\"image-check_d488984d1bad453e982e863ada5769d6\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-d488984d1bad453e982e863ada5769d6\" src=\"../assets/anomaly/images/challenge/d488984d1bad453e982e863ada5769d6.jpg\"
+        data-id=\"d488984d1bad453e982e863ada5769d6.jpg\" data-testid=\"anomaly-modal-image-6\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"7\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_bf533c68153f4d3db74d31b33a9d1707\" data-testid=\"anomaly-modal-tile-7\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_bf533c68153f4d3db74d31b33a9d1707\" id=\"image-check_bf533c68153f4d3db74d31b33a9d1707\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-bf533c68153f4d3db74d31b33a9d1707\" src=\"../assets/anomaly/images/challenge/bf533c68153f4d3db74d31b33a9d1707.jpg\"
+        data-id=\"bf533c68153f4d3db74d31b33a9d1707.jpg\" data-testid=\"anomaly-modal-image-7\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                                <div
+        class=\"anomaly-modal__box\" data-index=\"8\">\n                                    \n
+        \                                   \n                                        <label
+        class=\"\" for=\"image-check_6cc56ef6960946b7b63c0250878e085e\" data-testid=\"anomaly-modal-tile-8\">\n
+        \                                           <input type=\"checkbox\" class=\"anomaly-modal__check\"
+        name=\"image-check_6cc56ef6960946b7b63c0250878e085e\" id=\"image-check_6cc56ef6960946b7b63c0250878e085e\">\n
+        \                                           <img class=\"anomaly-modal__image\"
+        alt=\" \" id=\"image-6cc56ef6960946b7b63c0250878e085e\" src=\"../assets/anomaly/images/challenge/6cc56ef6960946b7b63c0250878e085e.jpg\"
+        data-id=\"6cc56ef6960946b7b63c0250878e085e.jpg\" data-testid=\"anomaly-modal-image-8\"></img>\n
+        \                                       </label>\n                                    \n
+        \                               </div>\n                            \n                        </div>\n
+        \                   </div>\n                    <div class=\"anomaly-modal__controls\">\n
+        \                       <button name=\"challenge-submit\" class=\"btn btn--primary
+        anomaly-modal__submit js-anomaly-modal-submit\" form=\"challenge-form\" value=\"d4cd0dabcf4caa22ad92fab40844c786\"
+        >Submit</button>\n                        <p></p>\n                        <input
+        class=\"feedback-toggle\" type=\"checkbox\" id=\"feedback\" unchecked />\n
+        \                       <label for=\"feedback\" class=\"feedback-text\">Images
+        not loading?</label>\n                        <div class=\"feedback-content\">\n
+        \                           <label class=\"feedback-instructions\">Please
+        email the following code to:</label>\n                            <p class=\"feedback-instructions\">error-lite@duckduckgo.com</p>\n
+        \                           <p><label class=\"feedback-instructions\">Code:
+        d4cd0dabcf4caa22ad92fab40844c786</label></p>\n                        </div>\n
+        \                   </div>\n            </div>\n        </form>\n        \n\n
+        \       \n\n        \n\n        \n\n\n        <br>\n        <p class='html-only'>\n
+        \           <!--    This is the Lite version. Get the full-JS version <a href=\"https://duckduckgo.com/\">here</a>.
+        //-->\n        </p>\n    </center>\n    \n        <img src=\"//duckduckgo.com/t/tqadb?7959607&amp;s=lite&amp;r=usw&amp;e=0&amp;p=e2d9f8fda1494035bde0c01149bad26a-83a8bbb9db1b4e989dad0ccf51c486cb-99c9cc37b942455da540552847465280-d9a34a82af2f40b2b09e501ff8fe8bf4-649db76a9b3645808b763c97c94fa1a5-2fe593a023f249a2be9e11b80a0aed68-d488984d1bad453e982e863ada5769d6-bf533c68153f4d3db74d31b33a9d1707-6cc56ef6960946b7b63c0250878e085e&amp;c=dadb&amp;cc=sre&amp;gk=d4cd0dabcf4caa22ad92fab40844c786&amp;o=LDSV6x7fhCn2%2Bg6pgRkVD8cEMVqusl2a3Owcpfl177U%3D%0A&amp;sc=1&amp;iadb=0&amp;i=-1\"/>\n
+        \   \n    \n    \n    \n    \n\n</body>\n\n</html>\n"
+  recorded_at: Wed, 24 Dec 2025 20:13:17 GMT
+recorded_with: VCR 6.3.1

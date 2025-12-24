@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://example.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      User-Agent:
+      - Mozilla/5.0 (compatible; FizzyResearchBot/1.0)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 24 Dec 2025 20:22:22 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Last-Modified:
+      - Sat, 20 Dec 2025 05:42:21 GMT
+      Allow:
+      - GET, HEAD
+      Age:
+      - '4'
+      Cf-Cache-Status:
+      - HIT
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9b32cf784deba6c4-SJC
+    body:
+      encoding: ASCII-8BIT
+      string: '<!doctype html><html lang="en"><head><title>Example Domain</title><meta
+        name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh
+        auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style><body><div><h1>Example
+        Domain</h1><p>This domain is for use in documentation examples without needing
+        permission. Avoid use in operations.<p><a href="https://iana.org/domains/example">Learn
+        more</a></div></body></html>
+
+        '
+  recorded_at: Wed, 24 Dec 2025 20:22:22 GMT
+recorded_with: VCR 6.3.1

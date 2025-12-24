@@ -14,14 +14,21 @@ Research the following topic and provide a comprehensive analysis:
 
 Research depth: <%= @depth %>
 
+**Important: Use your web_search and web_fetch tools to gather current, accurate information.**
+
+1. Start by using web_search to find relevant sources about the topic
+2. Use web_fetch to read the most relevant pages for detailed information
+3. Synthesize the information you gather into your response
+
 Please provide:
-- A clear summary of the topic
-- Key points and important facts
+- A clear summary of the topic (based on web research)
+- Key points and important facts (with sources)
 - Relevant context and background
 - Potential considerations or caveats
 <% if @depth == "thorough" %>
 - Detailed analysis with multiple perspectives
 - Connections to related topics
+- Additional web searches to explore related areas
 <% end %>
 
-Respond with well-structured markdown formatting.
+Respond with well-structured markdown formatting. Cite your sources where appropriate.
