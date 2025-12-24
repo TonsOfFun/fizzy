@@ -39,6 +39,8 @@ gem "mittens"
 gem "useragent", bc: "useragent"
 gem "herb"
 gem "activeagent"
+gem "solid_agent", path: "../solid_agent"
+
 # Operations
 gem "autotuner"
 gem "mission_control-jobs"

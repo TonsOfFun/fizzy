@@ -1,5 +1,7 @@
 class ApplicationAgent < ActiveAgent::Base
-  include SolidAgent
+  include SolidAgent::HasContext
+  include SolidAgent::HasTools
+  include SolidAgent::StreamsToolUpdates
 
   layout "agent"
 
